@@ -2,4 +2,4 @@
 
 export TERM=xterm-256color
 source ./venv/bin/activate
-python -m explorer
+python -m ethics_game
