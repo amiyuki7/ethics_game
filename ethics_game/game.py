@@ -2,6 +2,8 @@ import random
 from curses import window
 from math import floor
 
+from dataclasses import dataclass, field
+
 from .ctx import (
     Side,
     player,
@@ -12,17 +14,30 @@ from .globals import Globals as G
 from .lib.parser import Tile
 
 
+@dataclass(repr=False, eq=False)
 class EnemyResult:
-    # Enemy object
-    def __init__(
-        self,
-        enemy: Tile | None = None,
-        pos: tuple[int, int] | None = None,
-        name: str | None = None,
-    ) -> None:
-        self.enemy = enemy
-        self.pos = pos
-        self.name = name
+    enemy: Tile | None = field(default=None)
+    pos: tuple[int, int] | None = field(default=None)
+    name: str | None = field(default=None)
+    question: str | None = field(default=None)
+    answer: str | None = field(default=None)
+
+
+# class EnemyResult:
+#     # Enemy object
+#     def __init__(
+#         self,
+#         enemy: Tile | None = None,
+#         pos: tuple[int, int] | None = None,
+#         name: str | None = None,
+#         question: str | None = None,
+#         answer: str | None = None,
+#     ) -> None:
+#         self.enemy = enemy
+#         self.pos = pos
+#         self.name = name
+#         self.question = question
+#         self.answer = answer
 
 
 # GameObject
@@ -93,11 +108,28 @@ class Game:
 
         enemy = tiles[enemy_idx]
 
+        # Normalised coordinates of enemy
+        ny = nx = 0
+        if enemy == up:
+            ny, nx = player.y - 1, player.x
+        if enemy == down:
+            ny, nx = player.y + 1, player.x
+        if enemy == right:
+            ny, nx = player.y, player.x + 1
+        if enemy == left:
+            ny, nx = player.y, player.x - 1
+
         # Map coordinates of the enemy tile
         y = [self.game_map.index(r) for r in self.game_map if enemy in r][0]
         x = [r.index(enemy) for r in self.game_map if enemy in r][0]
 
-        return EnemyResult(enemy, (y, x), "Question")
+        from .data.game_items import Enemies
+
+        enemy_data = Enemies[(ny, nx)]
+
+        return EnemyResult(
+            enemy, (y, x), enemy_data["name"], enemy_data["question"], enemy_data["answer"]
+        )
 
     def remove_tile(self, y, x) -> None:
         self.game_map[y][x] = Tile(".", False, Colors.PATH, 21, "PATH")
@@ -117,8 +149,11 @@ class Game:
                 if not enemy.enemy:
                     return
 
+                self.enemy = enemy
+
                 Log("━━━━━━━━━━━━━━━━━━━━━━━")
-                Log("yo wassup bitc")
+                Log(f"{enemy.name}")
+                Log(f"{enemy.question}")
                 Log("━━━━━━━━━━━━━━━━━━━━━━━")
                 Side().toggle_prompt()  # type: ignore
 

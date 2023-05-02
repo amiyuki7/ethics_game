@@ -131,7 +131,8 @@ class Side:
         if len(self.log_buffer) == self.max_log_length:
             self.log_buffer.popleft()
 
-        self.log_buffer.append(t)
+        for line in t.split("<BR>"):
+            self.log_buffer.append(line)
 
     def toggle_console(self) -> None:
         self.state = SideState.console if self.state != SideState.console else SideState.default

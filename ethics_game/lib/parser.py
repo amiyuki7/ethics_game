@@ -106,16 +106,7 @@ def parse_image(m: Image.Image) -> list[list[Tile]]:
     return ret
 
 
-COMMANDS = {
-    "equip",
-    "replace",
-    "discard",
-    "attack",
-    "pass",
-    "heal",
-    "abandon",
-    "showheals",
-}
+COMMANDS = {"answer"}
 
 
 class CommandResult:
