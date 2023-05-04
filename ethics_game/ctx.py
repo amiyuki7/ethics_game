@@ -73,7 +73,7 @@ class Side:
         self.log_buffer: deque[str] = deque()
         self.prompt_buffer: str = ""
 
-        self.max_log_length: int = G.game_height - 2 - 7 - 2
+        self.max_log_length: int = G.game_height - 2 - 7
         self.max_prompt_length: int = G.padding_width - 4 - 18
 
         self.stdscr = stdscr
@@ -129,11 +129,14 @@ class Side:
             raise Exception("Log buffer length is over the max space")
 
         for line in t.split("<BR>"):
-            # if not (line.isspace() or line == ""):
-            self.log_buffer.append(line)
+            max_line_length = G.padding_width - 5
+            chunks = [line[i : i + max_line_length] for i in range(0, len(line), max_line_length)]
 
-            if len(self.log_buffer) == self.max_log_length:
-                self.log_buffer.popleft()
+            for chunk in chunks:
+                self.log_buffer.append(chunk)
+
+                if len(self.log_buffer) == self.max_log_length:
+                    self.log_buffer.popleft()
 
             # self.log_buffer.append(line)
 
