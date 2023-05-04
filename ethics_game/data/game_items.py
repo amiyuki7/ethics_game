@@ -1,7 +1,7 @@
 from typing import Any, Literal
 
 
-Enemies: dict[tuple[int, int], dict[Literal["name", "question", "answer"], Any]] = {
+Enemies: dict[tuple[int, int], dict[Literal["name", "question", "after", "answer"], Any]] = {
     (186, 78): {
         "name": "Crystode",
     },
@@ -23,6 +23,7 @@ Enemies: dict[tuple[int, int], dict[Literal["name", "question", "answer"], Any]]
     (178, 107): {
         "name": "Software Licenses",
         "question": "Which is not always true for Public Domain Software?<BR><BR>[A] It has no ownership<BR>[B] It is open source<BR>[C] Anybody can redistribute it<BR>[D] Anybody can modify it",
+        "after": "Public Domain Software may be either closed or open source.",
         "answer": "B",
     },
     (178, 129): {

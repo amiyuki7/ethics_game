@@ -20,24 +20,8 @@ class EnemyResult:
     pos: tuple[int, int] | None = field(default=None)
     name: str | None = field(default=None)
     question: str | None = field(default=None)
+    after: str | None = field(default=None)
     answer: str | None = field(default=None)
-
-
-# class EnemyResult:
-#     # Enemy object
-#     def __init__(
-#         self,
-#         enemy: Tile | None = None,
-#         pos: tuple[int, int] | None = None,
-#         name: str | None = None,
-#         question: str | None = None,
-#         answer: str | None = None,
-#     ) -> None:
-#         self.enemy = enemy
-#         self.pos = pos
-#         self.name = name
-#         self.question = question
-#         self.answer = answer
 
 
 # GameObject
@@ -128,7 +112,12 @@ class Game:
         enemy_data = Enemies[(ny, nx)]
 
         return EnemyResult(
-            enemy, (y, x), enemy_data["name"], enemy_data["question"], enemy_data["answer"]
+            enemy,
+            (y, x),
+            enemy_data["name"],
+            enemy_data["question"],
+            enemy_data["after"],
+            enemy_data["answer"],
         )
 
     def remove_tile(self, y, x) -> None:
