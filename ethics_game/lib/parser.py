@@ -127,23 +127,34 @@ def parse_command(command: str, **kwargs) -> CommandResult:
     try:
         command_name = next(token_stream)
 
+        answer = after = ""
+
+        if kwargs.get("enemy"):
+            answer = kwargs["enemy"].answer
+            after = kwargs["enemy"].after
+
         if not command_name in COMMANDS:
             return CommandResult(f"{command_name}: invalid command", ok=False)
 
         match command_name:
-            case "equip":
-                if len(tokens) != 2:
-                    return CommandResult("Invalid arguments to `equip`", ok=False)
+            case "answer":
+                if answer == "":
+                    return CommandResult("Cannot use `answer` now", ok=False)
 
-            case "heal":
                 if len(tokens) != 2:
-                    return CommandResult("Invalid arguments to `heal`", ok=False)
+                    return CommandResult("Invalid arguments to `answer`", ok=False)
 
-            case "replace":
-                _ = kwargs["replace"]
-                if len(tokens) != 2:
-                    return CommandResult("Invalid arguments to `replace`", ok=False)
+                answer_arg = next(token_stream).upper()
 
+                if answer_arg not in ["A", "B", "C", "D"]:
+                    return CommandResult("Invalid arguments to `answer`", ok=False)
+
+                if answer_arg != answer:
+                    return CommandResult("Incorrect; lost 1 HP", ok=False)
+
+                parsed_action += f"Correct! {after}"
+
+        next(token_stream)
         # This line will never be run, but my python LSP wants the function to return a CommandResult
         return CommandResult(f"Invalid arguments to `{command_name}`", ok=False)
 
