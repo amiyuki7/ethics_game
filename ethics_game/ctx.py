@@ -128,10 +128,10 @@ class Side:
         if len(self.log_buffer) > self.max_log_length:
             raise Exception("Log buffer length is over the max space")
 
-        if len(self.log_buffer) == self.max_log_length:
-            self.log_buffer.popleft()
-
         for line in t.split("<BR>"):
+            if len(self.log_buffer) == self.max_log_length:
+                self.log_buffer.popleft()
+
             self.log_buffer.append(line)
 
     def toggle_console(self) -> None:
