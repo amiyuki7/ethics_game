@@ -78,28 +78,46 @@ class GameWrapper:
                         side.toggle_console()
                         command = side.prompt_buffer
                         side.prompt_buffer = ""
+                        game = self.get_game()
+                        side = self.get_side()
+                        assert game
+                        assert side
 
-                        command_result = parse_command(command)
-                        Log(command_result.resolve)
+                        if not (command.isspace() or command == ""):
+                            Log(f"> {command}")
+                            command_result = parse_command(command, enemy=game.enemy)
+
+                            Log(command_result.resolve)
+
+                            if not command_result.ok:
+                                side.toggle_prompt()
+                            else:
+                                if game.enemy:
+                                    assert game.enemy.pos
+                                    y, x = game.enemy.pos
+
+                                    connected_tiles = [
+                                        (y, x),
+                                        (y + 1, x),
+                                        (y - 1, x),
+                                        (y, x + 1),
+                                        (y, x - 1),
+                                    ]
+
+                                    enemy_tiles = filter(
+                                        lambda pair: game.game_map[pair[0]][pair[1]].id == 22,
+                                        connected_tiles,
+                                    )
+
+                                    for tile in enemy_tiles:
+                                        game.remove_tile(*tile)
+
+                                    game.enemy = None
+
+                                # else:
+                                #     side.state = side.previous_state
+
                         side.render()
-
-                        # if side.temp_weapon:
-                        #     command_result = parse_command(command, replace=True)
-                        #     Log(command_result.resolve)
-                        #     side.render()
-                        #
-                        #     # Weapon replacement "loop"
-                        #     if not command_result.ok:
-                        #         side.toggle_prompt()
-                        #
-                        # else:
-                        #     # Guard here so the console logger doesn't log blank lines
-                        #     if not (command.isspace() or command == ""):
-                        #         command_result = parse_command(command)
-                        #         Log(command_result.resolve)
-                        #
-                        #         if command_result.ok:
-                        #             side.state = side.previous_state
 
                     case 127:  # DELETE
                         side.prompt_buffer = side.prompt_buffer[:-1]
