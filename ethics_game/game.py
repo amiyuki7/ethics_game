@@ -22,6 +22,7 @@ class EnemyResult:
     question: str | None = field(default=None)
     after: str | None = field(default=None)
     answer: str | None = field(default=None)
+    img_uri: str | None = field(default=None)
 
 
 # GameObject
@@ -118,6 +119,7 @@ class Game:
             enemy_data["question"],
             enemy_data["after"],
             enemy_data["answer"],
+            enemy_data["img_uri"],
         )
 
     def remove_tile(self, y, x) -> None:
@@ -140,6 +142,7 @@ class Game:
 
                 self.enemy = enemy
 
+                Log(" ")
                 Log("━━━━━━━━━━━━━━━━━━━━━━━")
                 Log(f"{enemy.name}")
                 Log(f"{enemy.question}")

@@ -1,6 +1,7 @@
 from typing import Callable
 
 from PIL import Image
+import webbrowser
 
 from ..globals import Colors
 from ..globals import Globals as G
@@ -106,7 +107,7 @@ def parse_image(m: Image.Image) -> list[list[Tile]]:
     return ret
 
 
-COMMANDS = {"answer"}
+COMMANDS = {"answer", "open"}
 
 
 class CommandResult:
@@ -127,11 +128,12 @@ def parse_command(command: str, **kwargs) -> CommandResult:
     try:
         command_name = next(token_stream)
 
-        answer = after = ""
+        answer = after = img_uri = ""
 
         if kwargs.get("enemy"):
             answer = kwargs["enemy"].answer
             after = kwargs["enemy"].after
+            img_uri = kwargs["enemy"].img_uri
 
         if not command_name in COMMANDS:
             return CommandResult(f"{command_name}: invalid command", ok=False)
@@ -153,6 +155,12 @@ def parse_command(command: str, **kwargs) -> CommandResult:
                     return CommandResult("Incorrect; lost 1 HP", ok=False)
 
                 parsed_action += f"Correct! {after}"
+
+            case "open":
+                if len(tokens) > 1:
+                    return CommandResult("`open` does not take arguments", ok=False)
+
+                webbrowser.open(img_uri)
 
         next(token_stream)
         # This line will never be run, but my python LSP wants the function to return a CommandResult
