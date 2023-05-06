@@ -19,7 +19,6 @@ class EnemyResult:
     enemy: Tile | None = field(default=None)
     pos: tuple[int, int] | None = field(default=None)
     name: str | None = field(default=None)
-    question: str | None = field(default=None)
     after: str | None = field(default=None)
     answer: str | None = field(default=None)
     img_uri: str | None = field(default=None)
@@ -116,7 +115,6 @@ class Game:
             enemy,
             (y, x),
             enemy_data["name"],
-            enemy_data["question"],
             enemy_data["after"],
             enemy_data["answer"],
             enemy_data["img_uri"],
@@ -144,8 +142,9 @@ class Game:
 
                 Log(" ")
                 Log("━━━━━━━━━━━━━━━━━━━━━━━")
-                Log(f"{enemy.name}")
-                Log(f"{enemy.question}")
+                Log(f"Topic: {enemy.name}")
+                Log(f"--> Open the question using `open`")
+                Log(f"--> Answer the question using `answer <LETTER>`")
                 Log("━━━━━━━━━━━━━━━━━━━━━━━")
                 Side().toggle_prompt()  # type: ignore
 
