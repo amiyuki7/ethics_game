@@ -8,7 +8,7 @@ a = Analysis(
     ["cli.py"],
     pathex=[],
     binaries=[],
-    datas=[("krita/map.png", "krita/map.png")],
+    datas=[("./krita", "krita")],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

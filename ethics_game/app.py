@@ -1,9 +1,9 @@
 import curses
-from pathlib import Path
 from typing import Protocol
 
 from PIL import Image
 
+from . import resource_path
 
 from .ctx import (
     Log,
@@ -265,10 +265,11 @@ def main(stdscr: curses.window):
 
     game = GameWrapper(stdscr)
     game.initialize()
+
     game.add_object(
         Game(
             curses.newpad(257 + G.center_y * 2, 257 + G.center_x * 2),
-            parse_image(Image.open("krita/map.png")),
+            parse_image(Image.open(resource_path("krita/map.png"))),
         ),
     )
 
