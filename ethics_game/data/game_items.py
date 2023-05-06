@@ -1,7 +1,9 @@
 from typing import Any, Literal
 
 
-Enemies: dict[tuple[int, int], dict[Literal["name", "question", "after", "answer"], Any]] = {
+Enemies: dict[
+    tuple[int, int], dict[Literal["name", "question", "after", "answer", "img_uri"], Any]
+] = {
     (186, 78): {
         "name": "Crystode",
     },
@@ -22,15 +24,24 @@ Enemies: dict[tuple[int, int], dict[Literal["name", "question", "after", "answer
     },
     (178, 107): {
         "name": "Software Licenses",
-        "question": "Which is not always true for Public Domain Software?<BR><BR>[A] It has no ownership<BR>[B] It is open source<BR>[C] Anybody can redistribute it<BR>[D] Anybody can modify it",
+        "question": "Which is not always true for Public Domain Software?<BR> <BR>[A] It has no ownership<BR>[B] It is open source<BR>[C] Anybody can redistribute it<BR>[D] Anybody can modify it",
         "after": "Public Domain Software may be either closed or open source.",
         "answer": "B",
+        "img_uri": "",
     },
     (178, 129): {
-        "name": "Mekajiki",
+        "name": "Personal Privacy",
+        "question": "Which area of IT in the workplace can affect personal privacy?<BR> <BR>[A] Personal photos left in company cubicles<BR>[B] Mileage accured on company vehicles<BR>[C] Text messages sent on company owned devices<BR>[D] Taking a phone call during lunch break",
+        "after": "All activity on company-owned devices are not the private property of the employee.",
+        "answer": "C",
+        "img_uri": "",
     },
     (193, 131): {
-        "name": "Electryx",
+        "name": "Environmental Sustainability",
+        "question": "As cloud hosting/computing becomes the modern de facto, which scaling strategy is most eco-friendly and efficient?<BR> <BR>[A] Vertical cloud scaling<BR>[B] Horizontal cloud scaling<BR>[C] Rewrite all the code in Rust<BR>[D] Rate limit server requests",
+        "after": "Strengthening the specs of your machine is the most eco-friendly and efficient strategy, although horizontal scaling is inevitable",
+        "answer": "A",
+        "img_uri": "",
     },
     (170, 4): {
         "name": "Wavy Shadow",
@@ -45,13 +56,25 @@ Enemies: dict[tuple[int, int], dict[Literal["name", "question", "after", "answer
         "name": "West Key Guardian",
     },
     (215, 129): {
-        "name": "Baby Thunderbird",
+        "name": "Client Security",
+        "question": "Which best maximises client security?<BR> <BR>[A] SQL injection prevention<BR>[B] Scanning dependency vulnerabilities<BR>[C] Securely hashing & salting sensitive data<BR>[D] Stronger frontend/backend encryption",
+        "after": "To your clients, the worst situation is a data breach. Their sensitive data must be protected.",
+        "answer": "C",
+        "img_uri": "",
     },
     (217, 109): {
-        "name": "Bandit",
+        "name": "Personal Privacy II",
+        "question": "With the advance of software, companies can now scour the web for the online presence of potential clients and employees. Which conclusion is best drawn?<BR> <BR>[A] Software enhances productivity at the cost of consumer prices<BR>[B] Software enhances efficiency at the cost of personal privacy<BR>[C] Software enhances productivity at the cost of client experience<BR>[D] Software makes all company clients subject to blackmail",
+        "after": "Clients and employees all have digital footprints that can affect their work life",
+        "answer": "B",
+        "img_uri": "",
     },
     (219, 144): {
-        "name": "Mirror Knight",
+        "name": "Client Health",
+        "question": "",
+        "after": "",
+        "answer": "A",
+        "img_uri": "",
     },
     (225, 117): {
         "name": "Giga Gnome",
