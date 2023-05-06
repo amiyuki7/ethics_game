@@ -157,6 +157,7 @@ def parse_command(command: str, **kwargs) -> CommandResult:
                     return CommandResult(f"Incorrect; lost 1 HP ({player.hp}/5)", ok=False)
 
                 parsed_action += f"Correct! {after}"
+                player.progress += 1
 
             case "open":
                 if img_uri == "":

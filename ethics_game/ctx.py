@@ -18,6 +18,7 @@ class Player:
         self.__y = y
         self.__x = x
         self.hp = 5
+        self.progress = 0
 
         self.rel_y = y + G.padding_height
         self.rel_x = x + G.padding_width
@@ -97,6 +98,8 @@ class Side:
         draw(f"{player.x}")
         draw(f"\nHP: ", A_BOLD)
         draw(f"{player.hp} / 5")
+        draw(f"\nProgress: ", A_BOLD)
+        draw(f"{player.progress} / 11")
 
     def draw_console(self, prompt: bool) -> None:
         """

@@ -125,8 +125,13 @@ class GameWrapper:
 
                                     game.enemy = None
 
-                                # else:
-                                #     side.state = side.previous_state
+                                    # This check is placed here so that it only ever gets run once
+                                    if player.progress == 11:
+                                        Log(" ")
+                                        Log("━━━━━━━━━━━━━━━━━━━━━━━")
+                                        Log("CONGRATS! YOU WIN!")
+                                        Log("━━━━━━━━━━━━━━━━━━━━━━━")
+                                        Log(" ")
 
                         side.render()
 
