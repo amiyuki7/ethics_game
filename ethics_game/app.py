@@ -268,7 +268,7 @@ def main(stdscr: curses.window):
     game.add_object(
         Game(
             curses.newpad(257 + G.center_y * 2, 257 + G.center_x * 2),
-            parse_image(Image.open(Path(__file__).resolve().parents[1] / "krita" / "map.png")),
+            parse_image(Image.open("krita/map.png")),
         ),
     )
 
