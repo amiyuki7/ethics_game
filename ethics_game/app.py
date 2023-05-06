@@ -69,6 +69,13 @@ class GameWrapper:
         if not side:
             return
 
+        # Only allowed to use quit keybind if hp == 0
+        if player.hp == 0:
+            if key == 81:
+                # Quit the game
+                raise Exception
+            return
+
         # Acts differently depending on the side pad's state
         match side.state:
             # Text input mode
@@ -88,6 +95,10 @@ class GameWrapper:
                             command_result = parse_command(command, enemy=game.enemy)
 
                             Log(command_result.resolve)
+
+                            if player.hp == 0:
+                                Log(" ")
+                                Log("Ran out of HP! Press SHIFT+Q to quit")
 
                             if not command_result.ok:
                                 side.toggle_prompt()

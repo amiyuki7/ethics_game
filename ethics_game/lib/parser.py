@@ -5,6 +5,7 @@ import webbrowser
 
 from ..globals import Colors
 from ..globals import Globals as G
+from ..ctx import player
 
 
 class Tile:
@@ -152,7 +153,8 @@ def parse_command(command: str, **kwargs) -> CommandResult:
                     return CommandResult("Invalid arguments to `answer`", ok=False)
 
                 if answer_arg != answer:
-                    return CommandResult("Incorrect; lost 1 HP", ok=False)
+                    player.hp -= 1
+                    return CommandResult(f"Incorrect; lost 1 HP ({player.hp}/5)", ok=False)
 
                 parsed_action += f"Correct! {after}"
 

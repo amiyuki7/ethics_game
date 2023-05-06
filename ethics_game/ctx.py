@@ -17,6 +17,7 @@ class Player:
     def __init__(self, y: int, x: int) -> None:
         self.__y = y
         self.__x = x
+        self.hp = 5
 
         self.rel_y = y + G.padding_height
         self.rel_x = x + G.padding_width
@@ -94,6 +95,8 @@ class Side:
         draw(f"{player.y}")
         draw(f"\nPlayer X: ", A_BOLD)
         draw(f"{player.x}")
+        draw(f"\nHP: ", A_BOLD)
+        draw(f"{player.hp} / 5")
 
     def draw_console(self, prompt: bool) -> None:
         """
