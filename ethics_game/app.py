@@ -242,14 +242,13 @@ class GameWrapper:
         self.render_player()
 
     def run(self) -> None:
-        # I'm keeping the try/except commented out because this game is probably error prone
-        # try:
-        while True:
-            self.listen()
-            self.render()
-
-        # except:
-        #     pass
+        # Try/except used for quitting the game without looking like an error
+        try:
+            while True:
+                self.listen()
+                self.render()
+        except:
+            pass
 
 
 def main(stdscr: curses.window):
