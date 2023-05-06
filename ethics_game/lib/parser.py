@@ -157,10 +157,14 @@ def parse_command(command: str, **kwargs) -> CommandResult:
                 parsed_action += f"Correct! {after}"
 
             case "open":
+                if img_uri == "":
+                    return CommandResult("Cannot use `open` now", ok=False)
+
                 if len(tokens) > 1:
                     return CommandResult("`open` does not take arguments", ok=False)
 
                 webbrowser.open(img_uri)
+                return CommandResult("Opened image in default browser", ok=False)
 
         next(token_stream)
         # This line will never be run, but my python LSP wants the function to return a CommandResult
